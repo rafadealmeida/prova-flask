@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <form method="POST" action="/register">
+            <p class="h2">Se register</p>
+            <div data-mdb-input-init class="form-outline mb-4">
+                <input type="email" id="form2Example1" name="email" class="form-control" />
+                <label class="form-label" for="form2Example1">Email</label>
+            </div>
+            <div data-mdb-input-init class="form-outline mb-4">
+                <input id="form2Example1" name="nickname" class="form-control" />
+                <label class="form-label" for="form2Example1">Nickname</label>
+            </div>
+            <div data-mdb-input-init class="form-outline mb-4">
+                <input type="password" id="form2Example2" name="senha" class="form-control" />
+                <label class="form-label" for="form2Example2">Senha</label>
+            </div>
+           
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init
+                class="btn btn-primary btn-block mb-4">Registrar</button>
+            
+        </form>
+    </div>
+</body>
+
+</html>

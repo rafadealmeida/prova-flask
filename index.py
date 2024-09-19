@@ -1,5 +1,6 @@
 from flask import Flask,flash ,render_template, request, redirect, url_for, session
 from Usuario import Usuario
+from Servico import Servico
 
 usuario1= Usuario('Bruno Divino', 'BD', 'alohomora')
 usuario2= Usuario('Camila Ferreira', 'Mila', 'paozinho')
@@ -9,6 +10,11 @@ usuarios = { usuario1.nickname : usuario1,
             usuario2.nickname: usuario2,
             usuario3.nickname: usuario3  }
 
+servico1 = Servico('cabelo',"20,00")
+
+servicos = { servico1.nome : servico1
+            }
+
 app = Flask(__name__)
 app.secret_key = 'sdaghbdujighasuidhasidjioasghdui'
 
@@ -16,9 +22,13 @@ app.secret_key = 'sdaghbdujighasuidhasidjioasghdui'
 def home():
     return render_template('index.html')
 
-@app.route('/addfuncionario')
-def add_funcionario():
-    return 'Adicionar Funcionário'
+@app.route('/registerClient')
+def registerClient():
+    return render_template('register.html')
+
+# @app.route('/addfuncionario')
+# def add_funcionario():
+#     return 'Adicionar Funcionário'
 
 @app.route('/dashboard')
 def dashboard():
@@ -29,7 +39,7 @@ def dashboard():
     return render_template('dashboard.html', usuario_logado=usuario_logado)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
         if request.form['usuario'] in usuarios:
@@ -41,6 +51,24 @@ def login():
            
         else:
             return redirect(url_for('home'))
+        
+@app.route('/register', methods=['POST'])
+def register():
+    if request.method == 'POST':
+        email = request.form['email']
+        nickname = request.form['nickname']
+        senha = request.form['senha']
+        
+        if nickname in usuarios:
+            flash('Nome de usuário já existe!')
+        else:
+            novo_usuario = Usuario(email, nickname, senha)
+            usuarios[nickname] = novo_usuario
+            session['usuario_logado'] = novo_usuario.nickname
+            flash('Usuário registrado com sucesso!')
+            return redirect(url_for('home'))
+        
+    return redirect(url_for('home'))
 
 @app.route('/logout')
 def logout():
